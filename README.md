@@ -1,7 +1,7 @@
 # AESplaytool
 A simple python script to play with AES Encryption via cmd/shell. Base64 encoding is not included.
 
-All examples will be saved in files in the folder AES_log_files.
+All examples will be saved in the folder AES_log_files.
 
 Requirements
 
