@@ -1,0 +1,19 @@
+AES_log_file created 2016-07-31 13:46:09.508962
+
+original message:
+Play with me and get a feeling for AES!
+
+key:
+Very_Bad_AES_Key
+
+initialization vector:
+0000000000000000
+
+mode:
+ECB
+
+The encrypted message in hexadecimal presentation of length 96 (including a padding of 2*9 ) is:
+ace2a39ae84c7eb535f081e4744a08f3a5afbf6577e7bdbea476ca1e75b90f3bc531863f31f75ede9a12367860aaa3db
+
+decrypted message == original message:
+True

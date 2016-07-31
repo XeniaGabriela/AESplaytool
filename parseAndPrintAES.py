@@ -12,7 +12,8 @@ from base64 import b64encode, b64decode
 ################################################################################################
 
 currentPath = os.getcwd()
-logPath = os.getcwd() + "\\AES_log_files"
+logPath = os.getcwd() + "/AES_log_files"
+logPath = logPath.replace("\\", "/")
 logFile = ""
 
 def logToFile(mode, message):
@@ -23,7 +24,7 @@ def logToFile(mode, message):
     logFile = mode + "_" + message + "_" + fileNow + ".txt"
     global logger
     logger = logging.getLogger(logFile[:-4])
-    filePath = logPath.replace("\\", "/") + "/" + logFile
+    filePath = logPath + "/" + logFile
     fileHandler = logging.FileHandler(filePath)
     logger.addHandler(fileHandler), logger.setLevel(logging.DEBUG)
     if os.stat(logFile).st_size == 0:
