@@ -1,15 +1,26 @@
 # -*- coding: utf-8 -*-
+#
+# With this script you can print an AES cipher text to a given plaintext.
+# The plaintext can be a string or the content of a file.
+# You will need to define a key and depending on the chosen AES mode also an initialization vector.
+#
+# The script will guide you through the process:-)
+#
+# Author:
+#   Xenia Bogomolec, indigomind@gmx.de
+#
+
 import binascii, datetime, hashlib, logging, optparse, io, os
 from Crypto.Cipher import AES
+
 # Base64 encoding is not yet included.
-# Base64 encoding schemes are commonly used when there is a need to encode binary data that needs be stored and transferred over media that are designed to deal with textual data. 
-# This is to ensure that the data remains intact without modification during transport. 
-# Base64 is used commonly in a number of applications including email via MIME, and storing complex data in XML.
 from base64 import b64encode, b64decode
 
 ################################################################################################
-############################################ LOGGING ###########################################
+########################################### FUNCTIONS ##########################################
 ################################################################################################
+
+########################################### LOGGING ############################################
 
 currentPath = os.getcwd()
 logPath = os.getcwd() + "/AES_log_files"
@@ -39,6 +50,8 @@ def binaryFile(hexCipher):
     os.chdir(currentPath)
 
 
+######################################### CIPHER CLASS ########################################
+
 class Cipher(object):
 
     BS = AES.block_size # AES.bock_size is 16
@@ -52,6 +65,7 @@ class Cipher(object):
         "CTR": AES.MODE_CTR,
         "OPENPGP": AES.MODE_OPENPGP,
     }
+
     block_ciphers = ["ECB", "CBC", "CFB", "OFB", "OPENPGP"]
     stream_ciphers = ["CTR"]
 
@@ -61,7 +75,6 @@ class Cipher(object):
     ctr_required_args =  ["message", "key", "mode"]
 
     wrong_input = 0
-
 
 
     def parse_args(self):
@@ -122,9 +135,8 @@ class Cipher(object):
         return AES_args
 
 
-    ################################################################################################
-    ############################################# read file ########################################
-    ################################################################################################  
+############################################# read file ########################################
+  
 
     def readFile(self, filePath):
         currentPath = os.getcwd()
@@ -138,9 +150,7 @@ class Cipher(object):
         return {"data": message, "information": fileName[:-4]}
 
 
-    ################################################################################################
-    ####################################### check arguments ########################################
-    ################################################################################################  
+####################################### check arguments ######################################## 
 
     ###### missing input ######
     def missingArgs(self, AES_args):
@@ -199,10 +209,7 @@ class Cipher(object):
             print "\nLog file %s in directory %s" % (logFile, logPath)
 
 
-
-    ################################################################################################
-    ################################# block cipher related functions ###############################
-    ################################################################################################  
+################################# block cipher related functions ############################### 
 
     def printBlockAES(self, message, key, IV, padding, mode="ECB"):
         obj = AES.new(key, self.AES_modes[mode], IV)
@@ -245,9 +252,7 @@ class Cipher(object):
         logger.info("\ndecrypted message == original message:\n" + str(decryptedtext))
 
 
-    ################################################################################################
-    ################################ stream cipher related functions ###############################
-    ################################################################################################
+################################ stream cipher related functions ###############################
 
     @staticmethod
     def md5sum(message):
@@ -318,12 +323,29 @@ class Cipher(object):
         logger.info("\ndecrypted message == original message:\n" + str(decryptedtext == message))
 
 
-
-
-def main():
-
+if __name__ == '__main__':
     Cipher().parse_args()
 
 
-if __name__ == '__main__':
-    main()
+#
+#
+#                          m    m      \           /      m    m   
+#                      m            m   \    n    /   m            m
+#                       m              m \  OOO  / m              m
+#                         m              m\/ Ö \/m              m
+#                            m             mÖÖÖm            m
+#                                 m    m    ÖÖÖ    m    m
+#                                    m   m   Ö   m   m
+#                           m               /Ö\              m
+#                       m                  / Ö \                 m
+#                     m               m   !  Ö  !   m              m
+#                      m          m       !  Ö  !       m          m
+#                         m  m            !  Ö  !           m  m
+#                                        /   Ö   \
+#                                            Ö
+#                                            Ö
+#                                            Ö
+#                                            Ö
+#                                            Ö
+#
+#
